@@ -1,0 +1,7 @@
+# cloudflare
+cf_email: '{{cfemail}}'
+cf_api_key: '{{cfapikey}}'
+
+client: '{{client}}'
+domain: '{{domain}}'
+ip: '{{do_droplet.droplet.ip_address}}'

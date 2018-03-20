@@ -1,0 +1,10 @@
+- name: Add DNS Record
+  cloudflare_dns:
+   zone: '{{ domain }}'
+   record: '{{ client }}'
+   type: A
+   value: '{{ip}}'
+   state: present
+   solo: true
+   account_email: '{{ cf_email }}'
+   account_api_token: '{{ cf_api_key }}'

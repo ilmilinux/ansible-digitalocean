@@ -1,0 +1,39 @@
+- name: Register SSH key
+  digital_ocean:
+        state: present
+        command: ssh
+        name: "{{ do_ssh_name }}"
+        ssh_pub_key: "{{ do_ssh_pub_key }}"
+        api_token: "{{ do_api_token }}"
+  register: do_droplet
+
+- name: Register Droplet
+  digital_ocean:
+        state: present
+        command: droplet
+        name: "{{client}}.{{domain}}"
+        region_id: "{{ do_region }}"
+        size_id: "{{ do_size }}"
+        image_id: "{{ do_image }}"
+        ssh_key_ids: "{{ do_droplet.ssh_key.id }}"
+        unique_name: yes
+        api_token: "{{ do_api_token }}"
+        wait_timeout: 300
+  register: do_droplet
+
+- name: Add new droplet to inventory
+  add_host:
+        name: "{{client}}"
+        groups: do
+        ansible_python_interpreter: /usr/bin/python3
+        ansible_ssh_host: "{{ do_droplet.droplet.ip_address }}"
+        ansible_ssh_user: root
+        ansible_ssh_port: 22
+#        ansible_ssh_private_key_file: "{{ do_ssh_private_key }}"
+
+- name: Wait for to listen on port 22
+  wait_for:
+     state: started
+     host: "{{ do_droplet.droplet.ip_address }}"
+     port: 22
+

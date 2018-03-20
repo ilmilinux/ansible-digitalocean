@@ -1,0 +1,4 @@
+- name: copy kopi
+  copy:
+    src: templates/opt/ENABLE_ASSET_VER.sql
+    dest: /opt/ENABLE_ASSET_VER.sql

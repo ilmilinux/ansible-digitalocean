@@ -1,0 +1,22 @@
+
+- name: provision do
+  hosts: localhost
+  connection: local
+
+  vars_files:
+  - do/vars/main.yml
+  - dns/vars/main.yml
+
+  roles:
+  - do
+  - dns
+
+- name: setup server
+  hosts: do
+  become: yes
+
+  vars_files:
+  - general/vars/main.yml
+
+  roles:
+  - general

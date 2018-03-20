@@ -1,0 +1,11 @@
+general_pkg:
+  - libmysqlclient-dev
+  - unzip
+  - python-pip
+  - python3-pip
+
+pip_pkg:
+  - mysqlclient
+  - dopy
+  - boto
+

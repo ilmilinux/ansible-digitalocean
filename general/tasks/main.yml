@@ -1,0 +1,19 @@
+- name: set hostname
+  hostname:
+    name: "{{client}}"
+- name: copy /etc/hosts
+  template: src=../templates/etc/hosts dest=/etc/hosts owner=root mode=0644
+
+- name: copy /etc/security/limits.conf
+  template: src=../templates/etc/security/limits.conf dest=/etc/security/limits.conf owner=root mode=0644
+
+- name: install all general pkg
+  apt:
+      update-cache: yes
+      name: '{{ general_pkg }}'
+      state: present
+
+- name: install pip pkg
+  pip:
+      name: '{{ pip_pkg }}'
+
